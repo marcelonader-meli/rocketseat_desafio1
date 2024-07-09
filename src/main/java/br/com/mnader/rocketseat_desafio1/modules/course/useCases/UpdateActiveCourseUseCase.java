@@ -14,7 +14,7 @@ public class UpdateActiveCourseUseCase {
     CourseRepository courseRepository;
 
     public void execute(Course course) {
-        courseRepository.findById(course.getId())).ifPresentOrElse(
+        courseRepository.findById(course.getId()).ifPresentOrElse(
             coursePersisted -> {
                 if (course.getActive() != null) {
                     coursePersisted.setActive(course.getActive());
