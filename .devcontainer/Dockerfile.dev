@@ -1,0 +1,7 @@
+FROM maven:3.8.5-openjdk-17
+
+COPY . /app
+
+WORKDIR /app
+
+CMD ["tail", "-f", "/dev/null"]

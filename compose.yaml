@@ -1,0 +1,40 @@
+services:
+  project_java:
+    build: .
+    volumes:
+      - .:/app
+    networks:
+      - postgres-network 
+  
+  postgres:
+    image: postgres
+    container_name: postgres_db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: project_java
+    volumes:
+      - postgres_db:/var/lib/postgresql/data
+    networks:
+      - postgres-network
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: marcelo.m.nader@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: 123456
+    ports:
+      - 54322:80
+    depends_on:
+      - postgres
+    networks:
+      - postgres-network
+
+volumes:
+  postgres_db:
+
+networks:
+  postgres-network:
+    driver: bridge
